@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+ 
+  web:
+   
+    build: .
+   
+    image: blizzzm/web:v1
+
+    ports:
+      - "1000:8081" 
