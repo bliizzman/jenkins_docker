@@ -8,28 +8,37 @@ pipeline{
 
 	stages {
 
+		stage('Clean') {
+      			agent { 
+                		label 'docker'
+            		}
+			steps {
+				sh 'sudo docker rmi $(docker images -q)'
+			}
+		}
+		
 		stage('Build') {
-      agent { 
-                label 'docker'
-            }
+      			agent { 
+                		label 'docker'
+            		}
 			steps {
 				sh 'sudo docker build -t blizzzm/nginx:latest .'
 			}
 		}
 
 		stage('Login') {
-      agent { 
-                label 'docker'
-            }
+      			agent { 
+                		label 'docker'
+            		}
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW |sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 
 		stage('Push') {
-      agent { 
-                label 'docker'
-            }
+      			agent { 
+                		label 'docker'
+            		}
 			steps {
 				sh 'sudo docker push blizzzm/nginx:latest'
 			}
