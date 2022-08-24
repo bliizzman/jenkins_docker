@@ -1,0 +1,48 @@
+pipeline{
+
+	agent none
+
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('docker')
+	}
+
+	stages {
+
+		stage('Build') {
+      agent { 
+                label 'docker'
+            }
+			steps {
+				sh 'docker build -t blizzm/nginx:latest .'
+			}
+		}
+
+		stage('Login') {
+      agent { 
+                label 'docker'
+            }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+      agent { 
+                label 'docker'
+            }
+			steps {
+				sh 'docker push blizzm/nginx:latest'
+			}
+		}
+	  
+    stage('Deploy') {
+      agent { 
+                label 'ansible'
+            }
+      steps {
+        sh 'ansible /home/ubuntu/playbooks/playbook.yml'
+
+}
+}
+}
+}
