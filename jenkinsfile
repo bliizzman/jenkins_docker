@@ -50,7 +50,7 @@ pipeline{
             }
       steps {
       
-      sh "ansible-playbook playbook.yml -vvvv"
+      sh "sudo ansible-playbook playbook.yml -vvvv"
 
 }
 }
