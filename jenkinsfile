@@ -40,7 +40,8 @@ pipeline{
                 label 'ansible'
             }
       steps {
-        sh 'ansible /home/ubuntu/playbooks/playbook.yml'
+        sh 'cd /home/ubuntu/playbooks'
+	sh 'ansible playbook.yml'
 
 }
 }
