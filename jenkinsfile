@@ -13,7 +13,7 @@ pipeline{
                 		label 'docker'
             		}
 			steps {
-				sh 'sudo docker rmi blizzzm/nginx:latest | if ($build_error); then continue; fi'
+				sh 'sudo docker system prune -a -f'
 			}
 		}
 		
