@@ -49,9 +49,8 @@ pipeline{
                 label 'ansible'
             }
       steps {
-        dir('/home/ubuntu/playbooks') {
-      sh "ansible-playbook playbook.yml"
-    }
+      
+      sh "ansible-playbook -i /home/ubuntu/playbooks/hosts /home/ubuntu/playbooks/playbook.yml"
 
 }
 }
